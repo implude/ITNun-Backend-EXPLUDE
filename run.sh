@@ -1,4 +1,3 @@
-pip freeze > requirements.txt
 docker stop itnun
 docker rm itnun
 docker build -t itnun:latest .
