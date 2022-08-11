@@ -7,7 +7,6 @@ RUN pip3 install -r requirements.txt
 
 WORKDIR /src
 
-ENV FLASK_ENV=development
-# ENV FLASK_ENV=production
+ENV FLASK_DEBUG=1
 
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
