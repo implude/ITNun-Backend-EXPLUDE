@@ -19,12 +19,13 @@ def create_app():
 app, db = create_app()
 
 from app.models.User import User
-
+from app.models.Policy import Policy
 db.create_all()
 
-from app.views import main_views, auth_views
+from app.views import main_views, auth_views, policy_manage_views
 app.register_blueprint(main_views.bp)
 app.register_blueprint(auth_views.bp)
+app.register_blueprint(policy_manage_views.bp)
 
     
 if __name__ == '__main__':
