@@ -26,8 +26,10 @@ def update_policy():
                         policy_job_status=i['empmSttsCn'], 
                         policy_academic_status=i['accrRqisCn'], 
                         policy_specialization=i['majrRqisCn'],
-                        policy_good_at=i['splzRlmRqisCn']))
+                        policy_good_at=i['splzRlmRqisCn'],
+                        policy_request_deadline=i['rqutPrdCn'],
+                        policy_website_url=i['rqutUrla']))
         db.session.add(object_list[-1])
-        db.session.commit()
+    db.session.commit()
         
     return jsonify({'status': 'OK'})
