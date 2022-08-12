@@ -57,14 +57,26 @@ def signup_proc():
         params = request.get_json()
         user_email = params['user_email']
         user_pw = cryption.sha256_string(params['user_pw'])
-
+        user_birth = params['user_birth']
+        user_job_status = params['user_job_status']
+        user_academic_status = params['user_academic_status']
+        user_specialization = params['user_specialization']
+        user_pre_startup = params['user_pre_startup']
         # 아이디가 이미 존재하는 경우
         if User.query.filter_by(user_email=user_email).first():
             return jsonify({'result': 'fail', 'message': 'user already exists'})
 
         # 아이디가 존재하지 않는 경우
         else:
-            user = User(user_email=user_email, user_pw=user_pw, created=datetime.datetime.now())
+            user = User(
+                        user_email=user_email, 
+                        user_pw=user_pw,
+                        user_birth=user_birth,
+                        user_job_status=user_job_status,
+                        user_academic_status=user_academic_status,
+                        user_specialization=user_specialization,
+                        user_pre_startup=user_pre_startup)
+
             db.session.add(user)
             db.session.commit()
 
