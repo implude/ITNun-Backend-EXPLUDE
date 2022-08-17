@@ -2,6 +2,7 @@ from flask import jsonify, Blueprint, request
 
 from app.models.User import User
 from app.modules import cryption
+from app.modules.form_checker import Auth_checker
 from app import db
 from app import app
 
@@ -62,6 +63,8 @@ def signup_proc():
         user_academic_status = params['user_academic_status']
         user_specialization = params['user_specialization']
         user_pre_startup = params['user_pre_startup']
+        if not Auth_checker.signup_check(user_email, user_pw, user_birth, user_job_status, user_academic_status, user_specialization, user_pre_startup):
+            return jsonify({'result': 'fail', 'message': 'invalid params'})
         # 아이디가 이미 존재하는 경우
         if User.query.filter_by(user_email=user_email).first():
             return jsonify({'result': 'fail', 'message': 'user already exists'})
