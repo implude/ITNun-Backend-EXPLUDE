@@ -20,6 +20,7 @@ app, db = create_app()
 
 from app.models.User import User
 from app.models.Policy import Policy
+from app.models.News import News, Inquerd_News
 db.create_all()
 
 from app.views import main_views, auth_views, policy_manage_views

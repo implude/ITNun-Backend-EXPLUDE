@@ -22,14 +22,15 @@ def crawl_news_list() -> tuple:
     else:
         return 0, 0
 
-def crawl_news_contents(index_tuple: tuple):
-    news_list: list = []
+def crawl_news_contents(index_tuple: tuple) -> dict:
+    news_dict: dict = {}
 
     for i in range(index_tuple[0], index_tuple[1], -1):
         url: str = 'https://www.youthcenter.go.kr/board/boardDetail.do'
         params: dict = {'bbsNo': 3, 'ntceStno': i + 126, 'pageUrl': 'board%2Fboard'}
         response: requests.Response = requests.get(url, params=params)
         soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-        news_list.append(soup.find('div', 'view-txt').text)
+        news_dict[i] = {'date': soup.find('div', 'tit-box').find("span").text, 'content': str(soup.find('div', 'view-txt'))}
 
-    return news_list
+    return news_dict
+
