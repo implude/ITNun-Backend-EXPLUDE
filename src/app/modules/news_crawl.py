@@ -2,6 +2,10 @@ import pandas as pd
 import datetime, requests
 from bs4 import BeautifulSoup
 
+import urllib.parse
+
+
+
 def crawl_news_list() -> tuple:
     df: pd.DataFrame = pd.read_html('https://www.youthcenter.go.kr/board/boardList.do?bbsNo=3&pageUrl=board/board', encoding='utf-8', header=0)[0] 
 
@@ -30,7 +34,8 @@ def crawl_news_contents(index_tuple: tuple) -> dict:
         params: dict = {'bbsNo': 3, 'ntceStno': i + 126, 'pageUrl': 'board%2Fboard'}
         response: requests.Response = requests.get(url, params=params)
         soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-        news_dict[i] = {'date': soup.find('div', 'tit-box').find("span").text, 'content': str(soup.find('div', 'view-txt'))}
+        title_box = soup.find('div', 'tit-box')
+        news_dict[i] = {'title': title_box.find("h3").text, 'date': title_box.find("span").text, 'content': str(soup.find('div', 'view-txt')), 'url': url + "/?" +urllib.parse.urlencode(params)}
 
     return news_dict
 
