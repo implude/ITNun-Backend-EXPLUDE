@@ -1,5 +1,5 @@
 import pandas as pd
-import datetime, requests
+import datetime, requests, urllib.parse
 from bs4 import BeautifulSoup
 
 def crawl_news_list() -> tuple:
@@ -30,7 +30,7 @@ def crawl_news_contents(index_tuple: tuple) -> dict:
         params: dict = {'bbsNo': 3, 'ntceStno': i + 126, 'pageUrl': 'board%2Fboard'}
         response: requests.Response = requests.get(url, params=params)
         soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-        news_dict[i] = {'date': soup.find('div', 'tit-box').find("span").text, 'content': str(soup.find('div', 'view-txt'))}
+        title_box = soup.find('div', 'tit-box')
+        news_dict[i] = {'title': title_box.find("h3").text, 'date': title_box.find("span").text, 'content': str(soup.find('div', 'view-txt')), 'url': url + "?" +urllib.parse.urlencode(params).replace("%252F", "%2F")}
 
     return news_dict
-
