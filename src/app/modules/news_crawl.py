@@ -22,8 +22,8 @@ def crawl_news_list() -> tuple:
     else:
         return 0, 0
 
-def crawl_news_contents(index_tuple: tuple) -> dict:
-    news_dict: dict = {}
+def crawl_news_contents(index_tuple: tuple) -> list:
+    news_dict_list: list = []
 
     for i in range(index_tuple[0], index_tuple[1], -1):
         url: str = 'https://www.youthcenter.go.kr/board/boardDetail.do'
@@ -31,6 +31,8 @@ def crawl_news_contents(index_tuple: tuple) -> dict:
         response: requests.Response = requests.get(url, params=params)
         soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
         title_box = soup.find('div', 'tit-box')
-        news_dict[i] = {'title': title_box.find("h3").text, 'date': title_box.find("span").text, 'content': str(soup.find('div', 'view-txt')), 'url': url + "?" +urllib.parse.urlencode(params).replace("%252F", "%2F")}
+        news_dict_list.append({'id': i, 'title': title_box.find("h3").text, 'date': title_box.find("span").text, 'content': str(soup.find('div', 'view-txt')), 'url': url + "?" +urllib.parse.urlencode(params).replace("%252F", "%2F")})
+    return news_dict_list
 
-    return news_dict
+def crawl_news() -> list:
+    return crawl_news_contents(crawl_news_list())
