@@ -20,15 +20,18 @@ class News(db.Model):
 
     def __repr__(self) -> str:
         return '<User %r>' % self.email
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class User_Inquierd_News(db.Model):
     
-    inquerd_news_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
-    news_id = db.Column(db.Integer, db.ForeignKey('news.news_id'), nullable=False)
+    news_id = db.Column(db.Integer, db.ForeignKey('news.news_id'), nullable=False, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self) -> str:
         return '<User %r>' % self.email
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Server_Inquired_News(db.Model):
     

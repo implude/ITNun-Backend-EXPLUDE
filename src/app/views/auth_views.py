@@ -24,7 +24,7 @@ def login_proc():
                 'user_pw': user_pw,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=30)  # 로그인 30일 유지
             }
-            token = jwt.encode(payload, app.app.secret_key, algorithm='HS256')
+            token = jwt.encode(payload, app.secret_key, algorithm='HS256')
 
             return jsonify({'result': 'success', 'token': token})
 
@@ -63,7 +63,8 @@ def signup_proc():
         user_academic_status = params['user_academic_status']
         user_specialization = params['user_specialization']
         user_pre_startup = params['user_pre_startup']
-        if not Auth_checker.signup_check(user_email, user_pw, user_birth, user_job_status, user_academic_status, user_specialization, user_pre_startup):
+        if not Auth_checker.signup_check(email=user_email, pw=params['user_pw'], birth=user_birth, job_status=user_job_status, 
+                                        academic_status=user_academic_status, specialization=user_specialization, pre_startup=user_pre_startup):
             return jsonify({'result': 'fail', 'message': 'invalid params'})
         # 아이디가 이미 존재하는 경우
         if User.query.filter_by(user_email=user_email).first():
