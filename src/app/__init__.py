@@ -20,13 +20,14 @@ app, db = create_app()
 
 from app.models.User import User
 from app.models.Policy import Policy
-from app.models.News import News, Inquerd_News
+from app.models.News import News, User_Inquierd_News, Server_Inquired_News
 db.create_all()
 
-from app.views import main_views, auth_views, policy_manage_views
+from app.views import main_views, auth_views, policy_manage_views, news_view
 app.register_blueprint(main_views.bp)
 app.register_blueprint(auth_views.bp)
 app.register_blueprint(policy_manage_views.bp)
+app.register_blueprint(news_view.bp)
 
     
 if __name__ == '__main__':
