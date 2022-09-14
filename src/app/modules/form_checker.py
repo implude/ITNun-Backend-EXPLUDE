@@ -14,11 +14,6 @@ class Auth_checker:
             return True
         return False
     @classmethod
-    def check_birth(self, birth):
-        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", birth):
-            return True
-        return False
-    @classmethod
     def check_job_status(self, job_status):
         if job_status in ['incumbent', 'take a leave of absence', 'job seeker', 'retiree']: # ['재직자', '휴직자', '취업준비생', '퇴직자']
             return True
@@ -39,5 +34,5 @@ class Auth_checker:
             return True
         return False
     @classmethod
-    def signup_check(self, email, pw, birth, job_status, academic_status, specialization, pre_startup):
-        return self.check_email(email) and self.check_pw(pw) and self.check_birth(birth) and self.check_job_status(job_status) and self.check_academic_status(academic_status) and self.check_specialization(specialization) and self.check_pre_startup(pre_startup)
+    def signup_check(self, email, pw, job_status, academic_status, specialization, pre_startup):
+        return self.check_email(email) and self.check_pw(pw) and self.check_job_status(job_status) and self.check_academic_status(academic_status) and self.check_specialization(specialization) and self.check_pre_startup(pre_startup)
