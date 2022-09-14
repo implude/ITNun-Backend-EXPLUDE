@@ -12,7 +12,7 @@ class User(db.Model):
     user_specialization = db.Column(db.String(100), nullable=False)
     user_pre_startup = db.Column(db.Boolean, nullable=False)
     
-    def __init__(self,user_email, user_pw, user_birth, user_job_status, user_academic_status, user_specialization, user_pre_startup) -> None:
+    def __init__(self,user_email, user_pw, user_job_status, user_academic_status, user_specialization, user_pre_startup) -> None:
         self.user_email = user_email
         self.user_pw = user_pw
         self.created = datetime.datetime.now()
