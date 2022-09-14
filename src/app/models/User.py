@@ -7,7 +7,6 @@ class User(db.Model):
     user_email = db.Column(db.String(120), unique=True, nullable=False)
     user_pw = db.Column(db.String(500), nullable=False)
     created = db.Column(db.DateTime, nullable=False)
-    user_birth = db.Column(db.DateTime, nullable=False)
     user_job_status = db.Column(db.String(20), nullable=False)
     user_academic_status = db.Column(db.String(20), nullable=False)
     user_specialization = db.Column(db.String(100), nullable=False)
@@ -17,7 +16,6 @@ class User(db.Model):
         self.user_email = user_email
         self.user_pw = user_pw
         self.created = datetime.datetime.now()
-        self.user_birth = datetime.datetime.strptime(user_birth, "%Y-%m-%d")
         self.user_job_status =user_job_status
         self.user_academic_status = user_academic_status
         self.user_specialization = user_specialization

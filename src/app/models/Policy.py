@@ -20,3 +20,17 @@ class Policy(db.Model):
 
     def __repr__(self) -> str:
         return '<User %r>' % self.email
+    
+class User_Inquierd_Policy(db.Model):
+    
+    policy_id = db.Column(db.Integer, db.ForeignKey('policy.policy_id'), nullable=False, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('policy.id'), nullable=False)
+    
+    def __repr__(self) -> str:
+        return '<User %r>' % self.email
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class Server_Inquired_Policy(db.Model):
+    
+    date = db.Column(db.DateTime, nullable=False, primary_key=True)

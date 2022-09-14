@@ -2,7 +2,6 @@ from app import db
 
 import datetime
 
-
 class News(db.Model):
 
     news_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
