@@ -20,12 +20,12 @@ class Auth_checker:
         return False
     @classmethod
     def check_academic_status(self, academic_status):
-        if academic_status in ['undergraduate', 'graduate', 'doctoral degree']: # ['학부생', '대학원생', '박사과정']
+        if academic_status in ['middle','high','undergraduate', 'graduate', 'doctoral degree']: # ['중학교', '고등학교', '대학교', '석사과정', '박사과정']
             return True
         return False
     @classmethod
     def check_specialization(self, specialization):
-        if specialization in ["Humanities", "Social Sciences", "Arts and Physical Education", "Natural Sciences", 'Engineering']: # ['인문계열', '사회계열', '예체능계열', '자연계열', '공학계열']
+        if specialization in ["Humanities", "Social Sciences", "Arts and Physical Education", "Natural Sciences", 'Engineering', 'None']: # ['인문계열', '사회계열', '예체능계열', '자연계열', '공학계열', '선택안함']
             return True
         return False
     @classmethod
