@@ -90,7 +90,7 @@ def get_policy():
             for i in policy_object:
                 if i.policy_id not in read_policy_id_list:
                     not_read_policy_list.append(i.as_dict())
-                    not_read_policy_objetct.append(User_Inquierd_Policy(user_id=token_auth_info[1].id, news_id=i.policy_id))
+                    not_read_policy_objetct.append(User_Inquierd_Policy(user_id=token_auth_info[1].id, policy_id=i.policy_id))
             db.session.add_all(not_read_policy_objetct)
             db.session.commit()
             return jsonify({"policy": not_read_policy_list})
