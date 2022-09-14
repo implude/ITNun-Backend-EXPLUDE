@@ -2,7 +2,6 @@ from app import db
 
 
 class Policy(db.Model):
-
     policy_id = db.Column(db.String(14), unique=True, nullable=False, primary_key=True)
     policy_name = db.Column(db.String(200), nullable=False)
     policy_Biz_code = db.Column(db.String(12), nullable=False)
@@ -23,8 +22,8 @@ class Policy(db.Model):
     
 class User_Inquierd_Policy(db.Model):
     
-    policy_id = db.Column(db.Integer, db.ForeignKey('policy.policy_id'), nullable=False, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('policy.id'), nullable=False)
+    policy_id = db.Column(db.String(14), db.ForeignKey('policy.policy_id'), nullable=False, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self) -> str:
         return '<User %r>' % self.email
