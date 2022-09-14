@@ -66,7 +66,7 @@ def get_policy():
         return jsonify({"result": "invalid request"})
 
 @bp.route('/get_all_policy', methods=['POST'])
-def get_policy():
+def get_all_policy():
     if request.is_json:
         params = request.get_json()
         try:
