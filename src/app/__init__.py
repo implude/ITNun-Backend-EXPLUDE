@@ -23,11 +23,13 @@ from app.models.Policy import Policy
 from app.models.News import News, User_Inquierd_News, Server_Inquired_News
 db.create_all()
 
-from app.views import main_views, auth_views, policy_manage_views, news_view
+from app.views import main_views, auth_views, policy_manage_views, news_view, youth_space_views
 app.register_blueprint(main_views.bp)
 app.register_blueprint(auth_views.bp)
 app.register_blueprint(policy_manage_views.bp)
 app.register_blueprint(news_view.bp)
+app.register_blueprint(youth_space_views.bp)
+
 
     
 if __name__ == '__main__':
