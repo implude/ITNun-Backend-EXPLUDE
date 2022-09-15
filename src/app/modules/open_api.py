@@ -64,9 +64,9 @@ def get_youth_space():
         dict_type = xmltodict.parse(resp.text)
         json_type = json.dumps(dict_type)
         if i > iteration:
+            pass
             # list_type = list_type + json.loads(json_type)
-            print(list_type)
-            return list_type
+        return json.loads(json_type)
 
         # list_type = list_type + json.loads(json_type)
 # big_region_dict = {

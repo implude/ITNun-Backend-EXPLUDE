@@ -17,8 +17,7 @@ def get_all_youth_space():
         #     return jsonify({'result': 'fail', 'message': 'token not found'})
         # token_auth_info = token_auth.token_decode(token)
         # if token_auth_info[0]:
-        open_api.get_youth_space()
-        return jsonify({'result': 'success'})
+        return jsonify({'result':open_api.get_youth_space()})
         #     return jsonify({"policy": policy_dict_list})
         # else:
         #     return jsonify({'result': 'fail', 'message': token_auth_info[1]})
