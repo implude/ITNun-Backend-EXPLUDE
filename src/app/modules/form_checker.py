@@ -9,7 +9,7 @@ class Auth_checker:
         return False
     @classmethod
     def check_pw(self, pw):
-        result = re.fullmatch(r"^(?=.*[\d])(?=.*[a-z])(?=.*[!@#$%^&*()])[\w\d!@#$%^&*()]{8,}$", pw)
+        result = re.fullmatch(r"^(?=.*[\d])(?=.*[a-z])(?=.*[0-9]){8,}$", pw)
         if result:
             return True
         return False
