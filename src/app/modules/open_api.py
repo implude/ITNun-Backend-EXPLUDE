@@ -59,7 +59,7 @@ def get_youth_space():
     api_key = os.environ.get('YOUTH_SPACE_API_KEY')
 
     for i in range(1, iteration+2):
-        params = {'openApiVlak': api_key, 'pageIndex': i, 'display': 100, 'pageType	': 1}
+        params = {'openApiVlak': api_key, 'pageIndex': i, 'display': 100, 'pageType': 1}
         resp = requests.get(url, params=params)
         dict_type = xmltodict.parse(resp.text)
         json_type = json.dumps(dict_type)
