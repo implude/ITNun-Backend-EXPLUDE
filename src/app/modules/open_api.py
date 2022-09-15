@@ -23,7 +23,7 @@ def get_youth_policy():
 
     list_type = []
     url = "https://www.youthcenter.go.kr/opi/empList.do"
-    api_key = os.environ.get('YOUTH_POLICY_API_KEY')
+    api_key = os.environ.get('YOUTH_API_KEY')
 
     for i in range(1, iteration+2):
         params = {'openApiVlak': api_key, 'pageIndex': i, 'display': 100}
@@ -56,7 +56,7 @@ def get_youth_space():
 
     list_type = []
     url = "https://www.youthcenter.go.kr/opi/wantedSpace.do"
-    api_key = os.environ.get('YOUTH_SPACE_API_KEY')
+    api_key = os.environ.get('YOUTH_API_KEY')
 
     for i in range(1, iteration+2):
         params = {'openApiVlak': api_key, 'pageIndex': i, 'display': 100, 'pageType': 1}
