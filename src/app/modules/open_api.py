@@ -62,6 +62,7 @@ def get_youth_space():
         params = {'openApiVlak': api_key, 'pageIndex': i, 'display': 100, 'pageType': 1}
         resp = requests.get(url, params=params)
         text = resp.text.replace("<![CDATA[","").replace("]]>","").replace("제공]]>", "제공")
+        return text
         dict_type = xmltodict.parse(text)
         json_type = json.dumps(dict_type)
         if i > iteration:
