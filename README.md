@@ -5,8 +5,9 @@
 1. Install docker and set docker environment variable
 2. Clone thie repository
 3. Prepare MariaDB or MySQL Database
-4. Make and edit .env file (the guideline file provided .env_template)
-5. run with `sudo bash run.js`
+4. Prepare youthcenter.go.kr OpenAPI Key
+5. Make and edit .env file (the guideline file provided .env_template)
+6. run with `sudo bash run.js`
 
 ## 2. API Docs
 
