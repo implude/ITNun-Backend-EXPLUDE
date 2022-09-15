@@ -40,7 +40,10 @@ def get_policy():
                                     policy_specialization=i['majrRqisCn'],
                                     policy_good_at=i['splzRlmRqisCn'],
                                     policy_request_deadline=i['rqutPrdCn'],
-                                    policy_website_url=i['rqutUrla']))
+                                    policy_website_url=i['rqutUrla'],
+                                    policy_progress=i['rqutProcCn']
+                                    )
+                                    )
                     db.session.add(policy_object[-1])
                 db.session.commit()
             else:

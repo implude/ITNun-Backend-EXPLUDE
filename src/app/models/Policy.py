@@ -16,6 +16,7 @@ class Policy(db.Model):
     policy_good_at = db.Column(db.String(500), nullable=False)
     policy_request_deadline = db.Column(db.String(500), nullable=False)
     policy_website_url = db.Column(db.String(500))
+    policy_progress = db.Column(db.String(500))
 
     def __repr__(self) -> str:
         return '<User %r>' % self.email
