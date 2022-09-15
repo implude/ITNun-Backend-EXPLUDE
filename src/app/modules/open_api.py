@@ -66,7 +66,7 @@ def get_youth_space():
         if i > iteration:
             pass
             # list_type = list_type + json.loads(json_type)
-        return json.loads(json_type)
+        return json.loads(json_type), iteration, remainder
 
         # list_type = list_type + json.loads(json_type)
 # big_region_dict = {
