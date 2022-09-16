@@ -1,4 +1,4 @@
-import requests, os, xmltodict, json, re
+import requests, os, xmltodict, json
 
 
 def get_count_of_policy():
