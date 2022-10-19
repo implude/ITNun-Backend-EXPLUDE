@@ -22,17 +22,19 @@ def crawl_news_list() -> tuple:
     else:
         return 0, 0
 
-def crawl_news_contents(index_tuple: tuple) -> list:
+def crawl_news_contents() -> list:
     news_dict_list: list = []
-
-    for i in range(index_tuple[0], index_tuple[1], -1):
-        url: str = 'https://www.youthcenter.go.kr/board/boardDetail.do'
-        params: dict = {'bbsNo': 3, 'ntceStno': i + 126, 'pageUrl': 'board%2Fboard'}
-        response: requests.Response = requests.get(url, params=params)
-        soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-        title_box = soup.find('div', 'tit-box')
-        news_dict_list.append({'id': i, 'title': title_box.find("h3").text, 'date': title_box.find("span").text, 'content': str(soup.find('div', 'view-txt')), 'url': url + "?" +urllib.parse.urlencode(params).replace("%252F", "%2F")})
+    url: str = 'https://www.youthdaily.co.kr/news/section_list_all.html?sec_no=54&page=1'
+    params: dict = {'sec_no': 54, 'page': 1}
+    response: requests.Response = requests.get(url, params=params)
+    soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
+    for i in range(1,4):
+        li_object = BeautifulSoup(str(soup.select('#container > div > div:nth-child(1) > div > div.ara_001 > ul > li:nth-child({0})'.format(i))), 'html.parser').find('a')
+        
+        news_dict_list.append({'title': li_object.find("h2").text, 'date': li_object.find("ul").find_all("li")[1].text, 'content': li_object.find('p').text, 'url': "https://www.youthdaily.co.kr" + li_object.get_attribute_list("href")[0]})
     return news_dict_list
 
 def crawl_news() -> list:
     return crawl_news_contents(crawl_news_list())
+
+print(crawl_news_contents())

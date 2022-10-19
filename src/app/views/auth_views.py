@@ -18,9 +18,11 @@ def login_proc():
         params = request.get_json() # get json data
         user_email = params['user_email'] # get user email
         user_pw = cryption.sha256_string(params['user_pw']) # get hashed user password
-
+        user_object = User.query.filter_by(user_email=user_email, user_pw=user_pw).first()
         # if matched user exists
-        if User.query.filter_by(user_email=user_email, user_pw=user_pw).first() and User.query.filter_by().first(): # check if user exists
+        if user_object: # check if user exists
+            if not user_object.user_email_verified:
+                return jsonify({"status": "fail", "message": "need email verification"})
             payload = {
                 'user_email': user_email,
                 'user_pw': user_pw,
@@ -33,8 +35,7 @@ def login_proc():
 
         # if not not match
         else:
-            return jsonify({'result': 'fail'}) # return fail message
-
+            return jsonify({'result': 'fail'}) # return fail message             
 @bp.route("/myinfo", methods=['POST']) # myinfo route
 def myinfo_proc():
     if request.is_json:
@@ -83,3 +84,20 @@ def signup_proc():
             db.session.commit() # commit db
 
             return jsonify({'result': 'success'}) # return success message
+
+@bp.route("/email_verification", methods=['GET']) # email verification route
+def email_verification_get_proc():
+    if request.is_json:
+        params = request.get_json()
+        user_email = params['user_email']
+        user_email_verification_code = params['user_email_verification_code']
+        user_object = User.query.filter_by(user_email=user_email).first()
+        if user_object:
+            if user_object.user_email_verification_code == user_email_verification_code:
+                user_object.user_email_verified = True
+                db.session.commit()
+                return jsonify({'result': 'success'})
+            else:
+                return jsonify({'result': 'fail', 'message': 'invalid code'})
+        else:
+            return jsonify({'result': 'fail', 'message': 'user not found'})

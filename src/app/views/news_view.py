@@ -30,7 +30,6 @@ def check_news():
                 for data in crawled_news:
                     news_object.append(
                         News(
-                            news_id=data['id'],
                             news_title=data['title'],
                             news_date=data['date'],
                             news_contents=data['content'],

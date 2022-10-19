@@ -4,10 +4,10 @@ import datetime
 
 class News(db.Model):
 
-    news_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+    news_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, auto_increamnet=True)
     news_title = db.Column(db.String(100), nullable=False)
     news_date = db.Column(db.String(100), nullable=False)
-    news_contents = db.Column(db.String(10000), nullable=False)
+    news_contents = db.Column(db.String(1000), nullable=False)
     news_url = db.Column(db.String(300), nullable=False)
 
     def __init__(self, news_id, news_title, news_date, news_contents, news_url):

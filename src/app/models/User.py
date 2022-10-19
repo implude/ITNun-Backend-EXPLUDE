@@ -11,6 +11,7 @@ class User(db.Model):
     user_academic_status = db.Column(db.String(20), nullable=False)
     user_specialization = db.Column(db.String(100), nullable=False)
     user_pre_startup = db.Column(db.Boolean, nullable=False)
+    user_email_verified = db.Column(db.Boolean, nullable=False)
     
     def __init__(self,user_email, user_pw, user_job_status, user_academic_status, user_specialization, user_pre_startup) -> None:
         self.user_email = user_email
@@ -20,6 +21,7 @@ class User(db.Model):
         self.user_academic_status = user_academic_status
         self.user_specialization = user_specialization
         self.user_pre_startup = user_pre_startup
+        self.user_email_verified = False
 
 
     def __repr__(self) -> str:
