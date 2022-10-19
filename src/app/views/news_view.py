@@ -2,7 +2,7 @@
 from flask import jsonify, Blueprint, request
 import datetime
 
-from app.models.News import News, User_Inquierd_News, Server_Inquired_News
+from app.models.News import News,  Server_Inquired_News
 from app.modules import news_crawl, token_auth
 from app import db
 
