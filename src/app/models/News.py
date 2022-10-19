@@ -21,17 +21,7 @@ class News(db.Model):
         return '<User %r>' % self.email
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
-class User_Inquierd_News(db.Model):
-    
-    news_id = db.Column(db.Integer, db.ForeignKey('news.news_id'), nullable=False, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    
-    def __repr__(self) -> str:
-        return '<User %r>' % self.email
-    def as_dict(self):
-       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
+       
 class Server_Inquired_News(db.Model):
     
     date = db.Column(db.DateTime, nullable=False, primary_key=True)
