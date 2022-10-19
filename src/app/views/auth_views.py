@@ -83,7 +83,7 @@ def signup_proc():
             db.session.add(user) # add user to db
             db.session.commit() # commit db
             user = User.query.filter_by(user_email=user_email).first()
-            send_email.send_verification_email(user.user_email, user.user_email_verification_code)
+            send_email.send_verification_email(user.user_email, user.user_verify_code)
             return jsonify({'result': 'success'}) # return success message
 
 @bp.route("/email_verification", methods=['GET']) # email verification route
@@ -91,10 +91,10 @@ def email_verification_get_proc():
     if request.is_json:
         params = request.get_json()
         user_email = params['user_email']
-        user_email_verification_code = params['user_email_verification_code']
+        user_verify_code = params['user_verify_code']
         user_object = User.query.filter_by(user_email=user_email).first()
         if user_object:
-            if user_object.user_email_verification_code == user_email_verification_code:
+            if user_object.user_verify_code == user_verify_code:
                 user_object.user_email_verified = True
                 db.session.commit()
                 return jsonify({'result': 'success'})
