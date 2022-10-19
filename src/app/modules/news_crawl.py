@@ -21,8 +21,7 @@ def crawl_news_list() -> tuple:
         return int(df.at[starting_index,'번호'].replace("번호", "").replace(" ", "")), int(df.at[ending_index,'번호'].replace("번호", "").replace(" ", ""))
     else:
         return 0, 0
-
-def crawl_news_contents() -> list:
+def crawl_news() -> list:
     news_dict_list: list = []
     url: str = 'https://www.youthdaily.co.kr/news/section_list_all.html?sec_no=54&page=1'
     params: dict = {'sec_no': 54, 'page': 1}
@@ -33,8 +32,3 @@ def crawl_news_contents() -> list:
         
         news_dict_list.append({'title': li_object.find("h2").text, 'date': li_object.find("ul").find_all("li")[1].text, 'content': li_object.find('p').text, 'url': "https://www.youthdaily.co.kr" + li_object.get_attribute_list("href")[0]})
     return news_dict_list
-
-def crawl_news() -> list:
-    return crawl_news_contents(crawl_news_list())
-
-print(crawl_news_contents())
