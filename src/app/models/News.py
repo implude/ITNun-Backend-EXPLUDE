@@ -13,7 +13,8 @@ class News(db.Model):
     def __init__(self, news_title, news_date, news_contents, news_url):
 
         self.news_title = news_title
-        self.news_date = datetime.datetime.strptime(news_date, '%Y.%m.%d')
+        #2022-10-18 08:00
+        self.news_date = datetime.datetime.strptime(news_date, '%Y-%m-%d %H:%M')
         self.news_contents = news_contents
         self.news_url = news_url
 
