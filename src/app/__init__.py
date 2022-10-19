@@ -20,7 +20,7 @@ app, db = create_app()
 
 from app.models.User import User
 from app.models.Policy import Policy
-from app.models.News import News, User_Inquierd_News, Server_Inquired_News
+from app.models.News import News, Server_Inquired_News
 db.create_all() # create tables
 
 from app.views import main_views, auth_views, policy_manage_views, news_view, youth_space_views # import views
