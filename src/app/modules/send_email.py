@@ -1,5 +1,3 @@
-from dotenv import load_dotenv   
-load_dotenv() #load .env fi
 import smtplib, os
 from email.mime.text import MIMEText
 
