@@ -2,7 +2,7 @@
 from flask import jsonify, Blueprint, request
 
 from app.models.User import User
-from app.modules import cryption
+from app.modules import cryption, send_email
 from app.modules.form_checker import Auth_checker
 from app import db
 from app import app
@@ -82,7 +82,8 @@ def signup_proc():
 
             db.session.add(user) # add user to db
             db.session.commit() # commit db
-
+            user = User.query.filter_by(user_email=user_email).first()
+            send_email.send_verification_email(user.user_email, user.user_email_verification_code)
             return jsonify({'result': 'success'}) # return success message
 
 @bp.route("/email_verification", methods=['GET']) # email verification route

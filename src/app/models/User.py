@@ -1,4 +1,4 @@
-import datetime
+import datetime, random
 from app import db
 
 
@@ -12,6 +12,7 @@ class User(db.Model):
     user_specialization = db.Column(db.String(100), nullable=False)
     user_pre_startup = db.Column(db.Boolean, nullable=False)
     user_email_verified = db.Column(db.Boolean, nullable=False)
+    user_verify_code = db.Column(db.String(7), nullable=False)
     
     def __init__(self,user_email, user_pw, user_job_status, user_academic_status, user_specialization, user_pre_startup) -> None:
         self.user_email = user_email
@@ -22,7 +23,9 @@ class User(db.Model):
         self.user_specialization = user_specialization
         self.user_pre_startup = user_pre_startup
         self.user_email_verified = False
-
-
+        self.user_verify_code = ""
+        for _ in range(0, 7):
+            self.user_verify_code += str(random.randint(0,9))
+       
     def __repr__(self) -> str:
         return '<User %r>' % self.email
