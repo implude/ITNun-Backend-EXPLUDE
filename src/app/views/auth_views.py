@@ -83,8 +83,9 @@ def signup_proc():
             db.session.add(user) # add user to db
             db.session.commit() # commit db
             user = User.query.filter_by(user_email=user_email).first()
-            send_email.send_verification_email(user.user_email, user.user_verify_code)
             return jsonify({'result': 'success'}) # return success message
+    else:
+        return jsonify({'result': 'Bad Request'}), 400
 
 @bp.route("/email_verification", methods=['GET']) # email verification route
 def email_verification_get_proc():
@@ -102,3 +103,20 @@ def email_verification_get_proc():
                 return jsonify({'result': 'fail', 'message': 'invalid code'})
         else:
             return jsonify({'result': 'fail', 'message': 'user not found'})
+@bp.route("/verify_email_send", methods=['POST']) # verify email send route
+def verify_email_send_proc():
+    if request.is_json: # check if request is json
+        params = request.get_json() # get json data
+        user_email = params['user_email'] # get user email
+        user_pw = cryption.sha256_string(params['user_pw']) # get hashed user password
+        user_object = User.query.filter_by(user_email=user_email, user_pw=user_pw).first()
+        # if matched user exists
+        if user_object: # check if user exists
+            if not user_object.user_email_verified:
+                send_email.send_verification_email(user_email, user_object.user_verify_code)
+            else:
+                return jsonify({"result": "already verified"}), 401
+        else:
+            return jsonify({'result': 'User Not Exists'}), 401
+    else:
+        return jsonify({'result': 'Bad Request'}), 400
