@@ -87,7 +87,7 @@ def signup_proc():
     else:
         return jsonify({'result': 'Bad Request'}), 400
 
-@bp.route("/email_verification", methods=['GET']) # email verification route
+@bp.route("/email_verification", methods=['POST']) # email verification route
 def email_verification_get_proc():
     if request.is_json:
         params = request.get_json()
@@ -114,6 +114,7 @@ def verify_email_send_proc():
         if user_object: # check if user exists
             if not user_object.user_email_verified:
                 send_email.send_verification_email(user_email, user_object.user_verify_code)
+                return jsonify({"status": "success", "message": "email sent"})
             else:
                 return jsonify({"result": "already verified"}), 401
         else:
