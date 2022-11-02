@@ -2,11 +2,13 @@
 from flask import jsonify, Blueprint, request
 
 from app.models.User import User
+from app.models.Policy import User_Inquierd_Policy
 from app.modules import cryption, send_email
 from app.modules.form_checker import Auth_checker
 from app import db
 from app import app
 from app.modules import token_auth
+
 
 import jwt, datetime
 
@@ -134,7 +136,10 @@ def quit_proc():
         token_auth_info = token_auth.token_decode(token) # decode token
         if token_auth_info[0]:
             user_object = token_auth_info[1]
-            # delete user
+            # delete user and foreign key data
+            object_list = User_Inquierd_Policy.query.filter_by(user_id=user_object.user_id).all()
+            for policy in object_list:
+                db.session.delete(policy)
             db.session.delete(user_object)
             db.session.commit()
             return jsonify({'result': 'success'}) # return success message
