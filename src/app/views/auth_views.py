@@ -125,6 +125,38 @@ def verify_email_send_proc():
     else:
         return jsonify({'result': 'Bad Request'}), 400
 
+@bp.route("/change_info", methods=['POST'])
+def change_user_info_proc():
+    if request.is_json:
+        params = request.get_json()
+        token = params['token']
+        user_job_status = params['user_job_status']
+        user_academic_status = params['user_academic_status']
+        user_specialization = params['user_specialization']
+        user_pre_startup = params['user_pre_startup']
+        try:
+            payload = jwt.decode(token, app.secret_key, algorithms=['HS256'])
+            user_email = payload['user_email']
+            user_object = User.query.filter_by(user_email=user_email).first()
+            if user_object:
+                if user_job_status != "" and user_job_status != None:
+                    user_object.user_job_status = user_job_status
+                if user_academic_status != "" and user_academic_status != None:
+                    user_object.user_academic_status = user_academic_status
+                if user_specialization != "" and user_specialization != None:
+                    user_object.user_specialization = user_specialization
+                if user_pre_startup != "" and user_pre_startup != None:
+                    user_object.user_pre_startup = user_pre_startup
+                db.session.commit()
+                return jsonify({'result': 'success'})
+            else:
+                return jsonify({'result': 'fail', 'message': 'user not found'})
+        except jwt.ExpiredSignatureError:
+            return jsonify({'result': 'fail', 'message': 'token expired'})
+        except jwt.InvalidTokenError:
+            return jsonify({'result': 'fail', 'message': 'invalid token'})
+        except Exception as e:
+            return jsonify({'result': 'fail', 'message': str(e)})
 @bp.route("/quit", methods=['POST']) # quit route
 def quit_proc():
     if request.is_json: # check request is json
