@@ -47,7 +47,18 @@ def myinfo_proc():
 
         try:
             payload = jwt.decode(token, app.secret_key, algorithms=['HS256'])
-            return jsonify({'result': 'success', 'user_email': payload['user_email']})
+            user_object = User.query.filter_by(user_email=payload['user_email']).first()
+            if user_object:
+                user_info = {
+                    'user_email': user_object.user_email,
+                    'user_job_status': user_object.user_job_status,
+                    "user_academic_status": user_object.user_academic_status,
+                    "user_specialization": user_object.user_specialization,
+                    "user_pre_startup": user_object.user_pre_startup
+                }
+                return jsonify({'result': 'success', 'user_info': user_info})
+            else:
+                return jsonify({'result': 'auth fail'})
         except jwt.ExpiredSignatureError:
             return jsonify({'result': 'fail', 'message': 'token expired'})
         except jwt.InvalidTokenError:
