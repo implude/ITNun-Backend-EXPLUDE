@@ -87,3 +87,18 @@ def get_all_policy():
             return jsonify({'result': 'fail', 'message': token_auth_info[1]})
     else:
         return jsonify({"result": "invalid request"})
+
+@bp.route('/detail_search', methods=['POST'])
+def search_policy(): 
+    if request.is_json:
+        params = request.get_json()
+        try:
+            token = params['token']
+        except:
+            return jsonify({'result': 'fail', 'message': 'token not found'})
+        token_auth_info = token_auth.token_decode(token)
+        if token_auth_info[0]:
+            result=open_api.get_youth_policy(params)
+            return jsonify({"policy": result})
+        else:
+            return jsonify({'result': 'fail', 'message': token_auth_info[1]})

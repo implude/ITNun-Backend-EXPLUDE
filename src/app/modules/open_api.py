@@ -70,6 +70,26 @@ def get_youth_space():
         return json.loads(json_type), iteration, remainder, resp.url
 
         # list_type = list_type + json.loads(json_type)
+def get_youth_policy(param_dict):
+
+    url = "https://www.youthcenter.go.kr/opi/empList.do"
+    api_key = os.environ.get('YOUTH_API_KEY')
+
+    params = {'openApiVlak': api_key, 'display': 100}
+    if "query" in param_dict:
+        params["query"] = param_dict["query"]
+    if "bizTycdSel" in param_dict:
+        params["bizTycdSel"] = param_dict["bizTycdSel"]
+    if "srchPolyBizSecd" in param_dict:
+        params["srchPolyBizSecd"] = param_dict["srchPolyBizSecd"]
+    resp = requests.get(url, params=params)
+    dict_type = xmltodict.parse(resp.text)
+    json_type = json.dumps(dict_type)
+    try:
+        list_type = json.loads(json_type)['empsInfo']['emp']
+    except KeyError:
+        list_type = []
+    return list_type
 # big_region_dict = {
 #     '서울': "003002001",
 #     '부산': "003002002",
