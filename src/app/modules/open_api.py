@@ -70,7 +70,7 @@ def get_youth_space():
         return json.loads(json_type), iteration, remainder, resp.url
 
         # list_type = list_type + json.loads(json_type)
-def get_youth_policy(param_dict):
+def detail_youth_policy(param_dict):
 
     url = "https://www.youthcenter.go.kr/opi/empList.do"
     api_key = os.environ.get('YOUTH_API_KEY')

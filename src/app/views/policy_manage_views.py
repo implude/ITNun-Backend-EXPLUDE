@@ -98,7 +98,7 @@ def search_policy():
             return jsonify({'result': 'fail', 'message': 'token not found'})
         token_auth_info = token_auth.token_decode(token)
         if token_auth_info[0]:
-            result=open_api.get_youth_policy(params)
+            result=open_api.detail_youth_policy(params)
             return jsonify({"policy": result})
         else:
             return jsonify({'result': 'fail', 'message': token_auth_info[1]})
